@@ -126,17 +126,22 @@ def Analyze_Folder_Data(folder):
             
 
 
-        # Gather Temperature Ranges
-        if dataset['Temp (°F)'][i] <= 1000: #cold
-            temp.append('cold')
-        elif 1000 < dataset['Temp (°F)'][i] <= 1050: #norm
-            temp.append('norm')
-        elif 1050 < dataset['Temp (°F)'][i] <= 1100: #hot
-            temp.append('hot')
-        elif 1100 < dataset['Temp (°F)'][i] <= 1150: #real hot
-            temp.append('very hot')
+        # Gather Temperature Ranges if online
+        if dataset['Power (MW)'][i] > 30:
+            
+            if dataset['Temp (°F)'][i] <= 1000:             #cold
+                temp.append('cold')
+            elif 1000 < dataset['Temp (°F)'][i] <= 1050:    #norm
+                temp.append('norm')
+            elif 1050 < dataset['Temp (°F)'][i] <= 1100:    #hot
+                temp.append('hot')
+            elif 1100 < dataset['Temp (°F)'][i] <= 1150:    #real hot
+                temp.append('very hot')
+            else:
+                temp.append('temperature outlier')
+
         else:
-            temp.append('temperature outlier')
+            temp.append('not online')
             
                 
 
